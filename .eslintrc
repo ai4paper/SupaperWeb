@@ -1,0 +1,12 @@
+{
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/consistent-type-imports": "off",
+    "vue/no-deprecated-slot-attribute": "off",
+    "vue/no-reserved-component-names": "off"
+  }
+}
