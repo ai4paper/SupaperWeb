@@ -26,3 +26,5 @@ logs
 coverage-client
 coverage-server
 .nest
+
+.vscode
