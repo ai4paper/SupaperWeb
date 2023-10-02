@@ -52,17 +52,15 @@ function startAnimation(textElement, subtitleElement) {
 </script>
 
 <template>
-  <div class="flex-grow container mx-auto p-8 flex items-center justify-center flex-col">
-    <div class="text-center mb-4">
-      <span class="text-blue-600 text-6xl font-bold">Supa</span>
+  <div class="container flex flex-col items-center justify-center flex-grow p-8 mx-auto max-h-36">
+    <div class="mb-4 text-center">
+      <span class="text-6xl font-bold text-blue-600">Supa</span>
       <span ref="text" class="text-6xl font-bold">per</span>
     </div>
-    <p ref="subtitle" class="text-gray-700 text-2xl">
+    <p ref="subtitle" class="text-2xl text-gray-700">
       Super
     </p>
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
