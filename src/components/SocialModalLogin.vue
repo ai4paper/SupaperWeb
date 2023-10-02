@@ -2,17 +2,16 @@
 <template>
     <transition name="fade">
         <div v-if="isOpen" @click.self="closeModal"
-            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+            class="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-25">
             <div class="relative p-6 bg-white rounded-lg w-96">
                 <span @click="closeModal" class="absolute cursor-pointer right-2 top-2">&times;</span>
-                <h2 class="mb-4 text-2xl font-bold text-center">Login</h2>
-
-                <div class="flex justify-between mb-6">
-                    <button @click="loginWithGithub" class="w-24 py-2 text-white bg-gray-800 rounded-full">Github</button>
-                    <button @click="loginWithGoogle" class="w-24 py-2 text-white bg-red-500 rounded-full">Google</button>
+                <h2 class="mb-4 text-2xl font-bold text-center text-blue-700">登录</h2>
+                <div class="flex justify-between mb-6 space-x-2">
+                    <button @click="loginWithGithub" class="w-24 py-2 text-white transition bg-gray-800 rounded-full hover:scale-105">Github</button>
+                    <button @click="loginWithGoogle" class="w-24 py-2 text-white transition bg-red-500 rounded-full hover:scale-105">Google</button>
                     <button @click="loginWithFacebook"
-                        class="w-24 py-2 text-white bg-blue-700 rounded-full">Facebook</button>
-                    <button @click="loginWithTwitter" class="w-24 py-2 text-white bg-blue-400 rounded-full">Twitter</button>
+                        class="w-24 py-2 text-white transition bg-blue-700 rounded-full hover:scale-105">Facebook</button>
+                    <button @click="loginWithTwitter" class="w-24 py-2 text-white transition bg-blue-400 rounded-full hover:scale-105">Twitter</button>
                 </div>
 
                 <form @submit.prevent="submit">
@@ -118,4 +117,5 @@ button {
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
-}</style>
+}
+</style>
