@@ -1,0 +1,182 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Accounts {
+  id                  String        @id
+  userId              String        @map("user_id")
+  provider            String
+  provider_account_id String
+  refresh_token       String?
+  access_token        String?       @db.Text
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  type                accounts_type?
+  id_token            String?       @db.Text
+  session_state       String?
+
+  @@unique([provider, provider_account_id])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model ApiKey {
+  id       BigInt  @id @default(autoincrement()) @map("id")
+  key      String  @map("key")
+  alive    Boolean @default(true) @map("alive")
+  amount   Decimal @map("amount")
+  used     Decimal @default(0.000000000000000000000000000000) @map("used")
+  endpoint String  @default("https://api.openai.com") @map("endpoint")
+
+  @@map("api_keys")
+}
+
+model paper_chunks {
+  id          BigInt   @id @default(autoincrement())
+  pdf_hash    String
+  page        Int
+  chunk_id    Int
+  text        String   @db.MediumText
+  cost_tokens Decimal
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  @@index([pdf_hash])
+}
+
+model paper_info {
+  id                   BigInt    @id @default(autoincrement())
+  url                  String?
+  pdf_url              String    @unique
+  pdf_hash             String    @unique
+  search_From          String
+  year                 Int?
+  title                String?
+  venue                String?
+  conference           String?
+  url_add_scib         String?   @db.VarChar(401)
+  bibtex               String?   @db.Text
+  url_scholarbib       String?
+  code                 String
+  eprint_url           String
+  num_citations        Int
+  cited_by_url         String
+  url_related_articles String    @db.VarChar(401)
+  authors              String?
+  abstract             String    @db.Text
+  img_url              String?   @db.Text
+  pub_time             DateTime?
+  keywords             String
+  create_time          DateTime?
+  doi                  String?
+  complete_summary     String?   @db.Text
+
+  @@index([pdf_url])
+}
+
+model paper_questions {
+  id          BigInt   @id @default(autoincrement())
+  pdf_hash    String
+  language    String
+  question    String   @db.MediumText
+  page        Int
+  cost_tokens Decimal
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  @@index([pdf_hash, language])
+}
+
+model paper_summaries {
+  id                    BigInt   @id @default(autoincrement())
+  pdf_hash              String
+  language              String
+  title                 String
+  title_zh              String
+  basic_info            String   @db.Text
+  brief_introduction    String   @db.Text
+  first_page_conclusion String   @db.Text
+  content               String   @db.Text
+  medium_content        String   @db.Text
+  short_content         String   @db.Text
+  create_time           DateTime
+
+  @@unique([pdf_hash, language], map: "summaries_pdf_hash_language_key")
+}
+
+model sessions {
+  id            String   @id
+  session_token String   @unique
+  user_id       String
+  expires       DateTime
+
+  @@index([user_id])
+}
+
+model share_histories {
+  id         BigInt   @id @default(autoincrement())
+  summary_id BigInt
+  user_id    String
+  created_at DateTime @default(now())
+
+  @@unique([summary_id, user_id])
+}
+
+model users_tasks {
+  id           String            @id
+  user_id      String
+  pdf_hash     String
+  file_name    String
+  language     String
+  type         users_tasks_type
+  pages        Int
+  cost_credits Decimal           @db.Decimal(9, 1)
+  state        users_tasks_state
+  created_at   DateTime          @default(now())
+  finished_at  DateTime?
+
+  @@index([pdf_hash, language, type], map: "tasks_pdf_hash_language_type_idx")
+}
+
+model verification_tokens {
+  id         BigInt                   @id @default(autoincrement())
+  identifier String
+  token      String                   @unique
+  type       verification_tokens_type
+  created_at DateTime                 @default(now())
+  expires    DateTime
+  used_at    DateTime?
+  extra      String?
+
+  @@unique([identifier, token])
+}
+
+enum verification_tokens_type {
+  register
+  reset_password
+  change_email
+  bind_email
+}
+
+enum users_tasks_type {
+  SUMMARY
+  TRANSLATE
+}
+
+enum users_tasks_state {
+  RUNNING
+  SUCCESS
+  FAIL
+}
+
+enum accounts_type {
+  oauth
+  email
+  credentials
+}
