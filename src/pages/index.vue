@@ -43,10 +43,10 @@ const options1 = [
         </button>
       </div>
     </div>
-    <div class="mx-auto w-[70%] flex items-start">
+    <div class="mx-auto w-[70%] flex items-start sm:flex-row flex-col">
       <textarea
-        class=" w-[60%] p-3 text-gray-700 placeholder-gray-400 transition-all duration-300 ease-in-out border-2 border-gray-300 rounded-md resize-none bg-gray-50 focus:outline-none focus:border-green-500 min-h-[300px]"></textarea>
-      <div class="w-[40%] grid grid-cols-1 mx-6 p-6 space-y-2 border-2 border-blue-200 rounded-lg">
+        class="w-[100%] sm:w-[60%] p-3 text-gray-700 placeholder-gray-400 transition-all duration-300 ease-in-out border-2 border-gray-300 rounded-md resize-none bg-gray-50 focus:outline-none focus:border-green-500 min-h-[300px]"></textarea>
+      <div class="w-[90%] sm:w-[40%] grid grid-cols-1 mx-6 p-6 space-y-2 border-2 border-blue-200 rounded-lg">
         <div class="flex items-center">
           <span class="min-w-[36px]">领域</span>
           <NSelect v-model="zone" :options="options1"></NSelect>
@@ -66,7 +66,7 @@ const options1 = [
       </div>
     </div>
 
-    <div class="grid w-full max-w-screen-lg grid-cols-3 gap-12 mx-auto mt-18">
+    <div class="grid w-full max-w-screen-lg grid-cols-2 gap-12 px-10 mx-auto sm:grid-cols-3 mt-18">
       <div class="p-6 bg-white rounded-lg shadow-lg">
         <h2 class="mb-2 text-xl font-bold">
           阅读
