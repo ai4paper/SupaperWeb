@@ -4,7 +4,6 @@ import SocialModalLogin from './SocialModalLogin.vue';
 const isModalOpen = ref(false);
 
 const openModal = () => {
-  console.log('1')
   isModalOpen.value = true;
 };
 
